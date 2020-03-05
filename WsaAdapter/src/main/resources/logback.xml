@@ -9,4 +9,7 @@
     <logger name="org.springframework.ws.client.MessageTracing.received" level="TRACE"/>
     <logger name="org.springframework.ws.server.MessageTracing" level="TRACE"/>
 
+    <logger name="ru.mk.wsa.adapter.service.impl" level="TRACE" />
+    <logger name="ru.mk.wsa.adapter" level="TRACE" />
+
 </configuration>

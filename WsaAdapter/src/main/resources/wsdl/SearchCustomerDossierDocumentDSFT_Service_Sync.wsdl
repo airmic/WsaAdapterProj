@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions
+        targetNamespace="http://www.vtb24.ru/ApplicationConnectorServiceLibrary/DSFT/Requesters/SearchCustomerDossierDocumentDSFTReqA/V1"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:tns="http://www.vtb24.ru/ApplicationConnectorServiceLibrary/DSFT/Requesters/SearchCustomerDossierDocumentDSFTReqA/V1"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <documentation>
+        <abstractWSDL>http://localhost:8092/sync/adapter587sync.wsdl</abstractWSDL>
+    </documentation>
+    <!--<wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="wsaddr_policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">-->
+        <!--<wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>-->
+    <!--</wsp:Policy>-->
+    <types>
+        <xsd:schema targetNamespace="http://www.vtb24.ru/ApplicationConnectorServiceLibrary/DSFT/Requesters/SearchCustomerDossierDocumentDSFTReqA/V1"
+                    elementFormDefault="qualified">
+            <xsd:complexType name="SearchCustomerDossierDocumentConfirmType">
+                <xsd:sequence>
+                    <xsd:element name="dsftSessionInfo" type="tns:DsftSessionType">
+                        <xsd:annotation>
+                            <xsd:documentation>Техническая информация СФР для корреляции сообщений</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="errorMessage" type="tns:ErrorMessageType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Информация об ошибке</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="SearchCustomerDossierDocumentRespType">
+                <xsd:sequence>
+                    <xsd:element name="dsftSessionInfo" type="tns:DsftSessionType">
+                        <xsd:annotation>
+                            <xsd:documentation>Техническая информация СФР для корреляции сообщений</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="RuntimeFault_MSG" type="tns:ErrorMessageType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Информация об ошибке</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="document" type="tns:DocumentRespType">
+                        <xsd:annotation>
+                            <xsd:documentation>Запрашиваемый документ</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="SearchCustomerDossierDocumentReqType">
+                <xsd:sequence>
+                    <xsd:element name="dsftSessionInfo" type="tns:DsftSessionType">
+                        <xsd:annotation>
+                            <xsd:documentation>Техническая информация СФР для корреляции сообщений</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="clientID" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Список ID клиентов</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="document" type="tns:DocumentReqType">
+                        <xsd:annotation>
+                            <xsd:documentation>Запрашиваемый документ</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ErrorMessageType">
+                <xsd:sequence>
+                    <xsd:element name="errorMessage" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Текст ошибки</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="errorCode" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Идентификатор ошибки</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DsftSessionType">
+                <xsd:sequence>
+                    <xsd:element name="processId" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Идентификатор вызывающего процесса на СФР</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="sessionId" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Идентификатор текущего запроса на УСБС</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DocumentReqType">
+                <xsd:sequence>
+                    <xsd:element name="docType" type="xsd:string" minOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation>Тип документа</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="docSubType" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Подтип документа</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="docNumber" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Номер документа</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                   <xsd:element name="docVersion" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Номер документа</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DocumentRespType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:DocumentReqType">
+                        <xsd:sequence>
+                            <xsd:element name="docLink" type="xsd:string" minOccurs="1">
+                                <xsd:annotation>
+                                    <xsd:documentation>Ссылка на документ</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="docDate" type="xsd:date" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>Дата документа</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="docID" type="xsd:string" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>Идентификатор документа в DV</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="docComment" type="xsd:string" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>Комментарий к документу</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="docUpdateDate" type="xsd:date" minOccurs="1">
+                                <xsd:annotation>
+                                    <xsd:documentation>Дата загрузки/обновления объекта в системе-источнике</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="docContentURL" type="xsd:string" minOccurs="1">
+                                <xsd:annotation>
+                                    <xsd:documentation>Ссылка на web-страницу со ссылками на объекты</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="docContentValidTime" type="xsd:dateTime" minOccurs="1">
+                                <xsd:annotation>
+                                    <xsd:documentation>Время, до которого ссылка является валидной</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:element name="SearchCustomerDossierDocumentReq" type="tns:SearchCustomerDossierDocumentReqType"/>
+            <xsd:element name="SearchCustomerDossierDocumentResp" type="tns:SearchCustomerDossierDocumentRespType"/>
+        </xsd:schema>
+    </types>
+    <message name="SearchCustomerDossierDocumentRQ">
+        <part name="Request" element="tns:SearchCustomerDossierDocumentReq"/>
+    </message>
+    <message name="SearchCustomerDossierDocumentRS">
+        <part name="Response" element="tns:SearchCustomerDossierDocumentResp"/>
+    </message>
+    <portType name="SearchCustomerDossierDocumentDSFTReqA">
+        <operation name="SearchCustomerDossierDocument">
+            <input message="tns:SearchCustomerDossierDocumentRQ"/>
+            <output message="tns:SearchCustomerDossierDocumentRS"/>
+        </operation>
+    </portType>
+    <binding name="SearchCustomerDossierDocumentDSFTReqA_Binding" type="tns:SearchCustomerDossierDocumentDSFTReqA">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wsaddr_policy" wsdl:required="false"/>
+        <operation name="SearchCustomerDossierDocument">
+            <soap:operation style="document"/>
+            <input>
+                <soap:body use="literal" parts="Request"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="Response"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="SOAPService">
+        <port name="SearchCustomerDossierDocumentDSFTReqA_pt" binding="tns:SearchCustomerDossierDocumentDSFTReqA_Binding">
+            <soap:address location="http://localhost:8092/sync/adapter587sync"/>
+        </port>
+    </service>
+</definitions>

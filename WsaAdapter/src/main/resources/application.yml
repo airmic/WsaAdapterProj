@@ -1,0 +1,38 @@
+server:
+  port: 8092
+spring:
+  redis:
+    host: localhost
+    port: 6378
+
+wsa:
+  defTimeoutMs: 1000
+  threadPoolSize: 10
+  servers:
+    -SearchCustomerDossierDocument:
+      sendUri: http://localhost:8090/wsa/adapterWsa
+      replyToUri: http://localhost:8092/wsa/adapter587
+      faultToUri: http://localhost:8092/wsa/fault
+      action: http://www.vtb24.ru/ApplicationConnectorServiceLibrary/DSFT/Requesters/SearchCustomerDossierDocumentDSFTReqA/V1/SearchCustomerDossierDocument
+      namespace: http://www.vtb24.ru/ApplicationConnectorServiceLibrary/DSFT/Requesters/SearchCustomerDossierDocumentDSFTReqA/V1
+      contextPath: ru.mk.wsa.adapter587
+      localPartReq: SearchCustomerDossierDocumentReq
+      localPartResp: SearchCustomerDossierDocumentResp
+      waitingTimeoutMS: 10000
+
+#Simple properties
+mail:
+  hostname: mailer@mail.com
+  port: 9000
+  from: mailer@mail.com
+
+  defaultRecipients: [admin@mail.com, owner@mail.com]
+
+  additionalHeaders:
+    redelivery: true
+    secure: true
+
+  credentials:
+    username: john
+    password: password
+    authMethod: SHA1

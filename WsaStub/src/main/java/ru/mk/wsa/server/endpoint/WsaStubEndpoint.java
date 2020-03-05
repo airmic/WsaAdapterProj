@@ -7,20 +7,17 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.SoapHeaderElement;
-import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 import ru.mk.wsa.adapter587.SearchCustomerDossierDocumentReqType;
 import ru.mk.wsa.server.client.WsaClient;
 import ru.mk.wsa.server.param.SearchCustomDossierDocumentRequest;
 
-import javax.xml.namespace.QName;
 import java.net.URISyntaxException;
 
 
 @Log4j2
 @Endpoint
 public class WsaStubEndpoint {
-
 
 //    @Action("http://www.vtb24.ru/ApplicationConnectorServiceLibrary/DSFT/Requesters/SearchCustomerDossierDocumentDSFTReqA/V1/SearchCustomerDossierDocument")
 //    public void searchCustomerDossierDocument(@RequestPayload SearchCustomerDossierDocumentReqType req
@@ -46,7 +43,7 @@ public class WsaStubEndpoint {
             , @SoapHeader("{http://www.w3.org/2005/08/addressing}FaultTo") SoapHeaderElement faultTo
             , @SoapHeader("{http://www.w3.org/2005/08/addressing}MessageID") SoapHeaderElement messageID
             , MessageContext messageContext
-    ) throws URISyntaxException {
+    ) throws URISyntaxException, InterruptedException {
         WsaClient client = new WsaClient();
 //        SoapHeaderElement soapHeader = null;
         log.info("replyTo - "+messageContext.getRequest().getPayloadSource());

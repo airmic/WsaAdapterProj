@@ -8,9 +8,7 @@ import ru.mk.wsa.server.model.soap.header.FaultToAddress;
 import ru.mk.wsa.server.model.soap.header.Message;
 import ru.mk.wsa.server.model.soap.header.ReplyToAddress;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import static ru.mk.wsa.common.helper.WsaHeaderHelper.unmarshal;
 
 
 @Data
@@ -33,18 +31,6 @@ public class SearchCustomDossierDocumentRequest {
         this.faultTo = unmarshal(faultTo, FaultToAddress.class);
         this.messageID = unmarshal(messageID, Message.class);
         this.messageContext = messageContext;
-    }
-
-    private <T> T unmarshal(SoapHeaderElement messageID, Class<T> clazz) {
-        T t = null;
-        try {
-            JAXBContext context = JAXBContext.newInstance(clazz);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            t = (T) unmarshaller.unmarshal(messageID.getSource());
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        return t;
     }
 
 

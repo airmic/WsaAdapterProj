@@ -1,5 +1,4 @@
-package ru.mk.wsa.adapter.model;
-
+package ru.mk.wsa.adapter.model.soapheaderelements;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

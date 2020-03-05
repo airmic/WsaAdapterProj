@@ -4,14 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>ru.mk.wsa</groupId>
-        <artifactId>wsaadapterproj</artifactId>
+        <artifactId>WsaAdapterProj</artifactId>
         <version>1.0</version>
-        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
-    <groupId>ru.mk.wsa.server</groupId>
     <artifactId>WsaStub</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>WsaStub</name>
+    <packaging>jar</packaging>
     <description>Server part of wsa</description>
 
     <properties>
@@ -23,7 +20,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web-services</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>ru.mk.wsa</groupId>
+            <artifactId>WsaCommon</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
