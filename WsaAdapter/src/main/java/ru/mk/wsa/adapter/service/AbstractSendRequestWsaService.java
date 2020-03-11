@@ -3,7 +3,9 @@ package ru.mk.wsa.adapter.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import ru.mk.wsa.adapter.utils.WsaMS;
 
+import java.text.MessageFormat;
 import java.util.UUID;
 
 @Service
@@ -16,9 +18,9 @@ public class AbstractSendRequestWsaService<Req, Resp> implements SendRequestWsaS
 
     @Override
     public Resp send(Req req) {
-        log.trace("Send request to target WSA server");
+        log.trace(WsaMS.getString("send.request.to.target.wsa.server"));
         String messageId = generateWsaMessageId();
-        log.trace("Generated request messageID: " + messageId);
+        log.trace(WsaMS.getString("generated.request.messageid.0", messageId));
         timeoutBreakerService.sendAsyncRequestByTimeout(req, messageId, timeout);
         Resp resp = timeoutBreakerService.getResponseByTimeout(messageId, timeout);
         return resp;

@@ -6,6 +6,7 @@ import org.springframework.ws.soap.SoapHeaderElement;
 import ru.mk.wsa.adapter.model.soapheaderelements.RelatesTo;
 import ru.mk.wsa.adapter.service.ReceiveResponseWsaService;
 import ru.mk.wsa.adapter.service.SendRequestWsaService;
+import ru.mk.wsa.adapter.utils.WsaMS;
 import ru.mk.wsa.common.helper.WsaHeaderHelper;
 
 @Log4j2
@@ -19,27 +20,27 @@ public abstract class AbstractWsaEndpoint<Req, Resp, Sender extends SendRequestW
         try {
             relatedTo = WsaHeaderHelper.unmarshal(relatedToElement, RelatesTo.class).getValue();
             if( relatedTo == null || relatedTo.isEmpty() || relatedTo.length()!=41) {
-                throw new RuntimeException("Error in the RelatedTo field of the WSA header of the SearchCustomerDossierDocument message");
+                throw new RuntimeException(WsaMS.getString("error.AbstractWsaEndpoint.getInitialMessageID.th1", this.getClass().getSimpleName()));
             }
         } catch (Exception ex) {
-            log.error("RelatedTo error.", ex);
+            log.error(WsaMS.getString("error.AbstractWsaEndpoint.getInitialMessageID.th2"), ex);
             throw new RuntimeException(ex);
         }
         return relatedTo.substring(5);
     }
 
     protected Resp getSyncRequest2(Req req) {
-        log.info("Start processing the received SearchCustomerDossierDocument request");
+        log.info(WsaMS.getString("AbstractWsaEndpoint.getSyncRequest2.start", this.getClass().getSimpleName()));
         Resp ret = sender.send(req);
-        log.info("End of processing SearchCustomerDossierDocument request");
+        log.info(WsaMS.getString("AbstractWsaEndpoint.getSyncRequest2.end", this.getClass().getSimpleName()));
         return ret;
     }
 
     protected void getAsyncResponse2(Resp resp, SoapHeaderElement relatedToElem) {
-        log.info("Start processing the async received SearchCustomerDossierDocument response");
+        log.info(WsaMS.getString("AbstractWsaEndpoint.getAsyncResponse2.start", this.getClass().getSimpleName()));
         String messageID = getInitialMessageID(relatedToElem);
-        log.trace("RelatesTo - " + messageID);
+        log.trace(WsaMS.getString("trace.relatesto.0", messageID));
         receiver.receive(messageID, resp);
-        log.trace("End of processing SearchCustomerDossierDocument response");
+        log.info(WsaMS.getString("AbstractWsaEndpoint.getAsyncResponse2.end", this.getClass().getSimpleName()));
     }
 }

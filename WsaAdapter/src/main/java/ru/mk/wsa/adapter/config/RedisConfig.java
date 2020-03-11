@@ -1,5 +1,6 @@
 package ru.mk.wsa.adapter.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +12,13 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @EnableRedisRepositories
 public class RedisConfig {
 
+    @Autowired
+    RedisProperties redisProperties;
+
     @Bean
 //    TODO: сюда автоварнуть redisProperties
     public LettuceConnectionFactory lettuceConnectionFactory() {
-        return new LettuceConnectionFactory();
+        return new LettuceConnectionFactory(redisProperties.getHost(), redisProperties.getPort());
     }
 
     @Bean
@@ -24,11 +28,4 @@ public class RedisConfig {
         return template;
     }
 
-//    @Bean
-//    @Primary
-    public RedisProperties redisProperties() {
-        return new RedisProperties() {{
-//            setPort(6378);
-        }};
-    }
 }

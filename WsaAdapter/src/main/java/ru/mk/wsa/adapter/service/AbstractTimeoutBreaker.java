@@ -2,6 +2,7 @@ package ru.mk.wsa.adapter.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import ru.mk.wsa.adapter.utils.WsaMS;
 
 import java.util.concurrent.*;
 
@@ -17,11 +18,11 @@ public abstract class AbstractTimeoutBreaker<Req, Resp, ARS extends AsyncRunnerS
             timeoutBreaker.schedule(() -> {
                 completableResp.cancel(true);
             }, timeout, TimeUnit.SECONDS);
-            log.trace("Request done");
+            log.trace(WsaMS.getString("request.done"));
             return completableResp.get();
         } catch (CancellationException e) {
-            log.error("Request cancelled", e);
-            throw new RuntimeException("WAiting ",e);
+            log.error(WsaMS.getString("error.request.cancelled"), e);
+            throw new RuntimeException(WsaMS.getString("error.request.cancelled"),e);
         } catch (InterruptedException | ExecutionException e) {
             log.error("", e);
             throw new RuntimeException(e);

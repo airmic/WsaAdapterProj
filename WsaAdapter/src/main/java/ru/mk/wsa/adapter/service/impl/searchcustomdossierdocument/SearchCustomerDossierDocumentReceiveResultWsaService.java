@@ -14,8 +14,4 @@ public class SearchCustomerDossierDocumentReceiveResultWsaService extends Abstra
         super(wsaRepository);
     }
 
-//    @Override
-//    protected Object getResponse(JAXBElement<SearchCustomerDossierDocumentRespType> resp) {
-//        return resp.getValue();
-//    }
 }

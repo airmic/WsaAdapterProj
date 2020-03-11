@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Async;
 import ru.mk.wsa.adapter.repository.WsaRepository;
 import ru.mk.wsa.adapter.sender.ClientSender;
+import ru.mk.wsa.adapter.utils.WsaMS;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,23 +18,23 @@ public abstract class AbstractAsyncRunnerService<Req, Resp>  implements AsyncRun
 
     @Async("redisThreadPoolExecutor")
     public CompletableFuture<Resp> getResponse(String messageID) {
-        log.trace("Start waiting response cycle");
+        log.trace(WsaMS.getString("AbstractAsyncRunnerService.getResponse.start"));
         try {
             while (true) {
                 if (Thread.currentThread().isInterrupted()) {
-                    log.error("Redis request timeout expired");
-                    throw new RuntimeException("Redis request timeout expired");
+                    log.error(WsaMS.getString("error.AbstractAsyncRunnerService.getResponse.th1"));
+                    throw new RuntimeException(WsaMS.getString("error.AbstractAsyncRunnerService.getResponse.th1"));
                 }
                 Resp ret = wsaRepository.get(messageID);
                 if (ret == null) {
                     Thread.yield();
                 } else {
-                    log.trace("get response - {} ", ret);
+                    log.trace(WsaMS.getString("AbstractAsyncRunnerService.getResponse.get.response"), ret);
                     return CompletableFuture.completedFuture(ret);
                 }
             }
         } finally {
-            log.trace("Stop waiting response cycle");
+            log.trace(WsaMS.getString("AbstractAsyncRunnerService.getResponse.stop"));
         }
     }
 

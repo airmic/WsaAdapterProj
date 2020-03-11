@@ -23,7 +23,7 @@ public class ThreadConfig {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setMaxPoolSize(wsaPropertiesList.getThreadPoolSize()*2);
         executor.setCorePoolSize(wsaPropertiesList.getThreadPoolSize()*2);
-        executor.setThreadNamePrefix("redis_task_executor_thread");
+        executor.setThreadNamePrefix("red_exec_");
         executor.initialize();
         return executor;
     }
