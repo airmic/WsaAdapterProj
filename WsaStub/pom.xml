@@ -23,7 +23,6 @@
         <dependency>
             <groupId>ru.mk.wsa</groupId>
             <artifactId>WsaCommon</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,6 +35,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.apache.ws.xmlschema</groupId>
+            <artifactId>xmlschema-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -47,7 +54,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>2.5.0</version>
                 <executions>
                     <execution>
                         <id>xjc-adapter-wsa</id>
@@ -83,8 +89,42 @@
                             <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>xjc-clientInfo</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <target>2.1</target>
+                            <sources>
+                                <source>${basedir}/src/main/resources/xsd/clientInfo.xsd</source>
+                                <source>${basedir}/src/main/resources/xsd/common.xsd</source>
+                            </sources>
+                            <!--                            <sourceType>wsdl</sourceType>-->
+                            <packageName>ru.mk.common.clientInfo</packageName>
+                            <noGeneratedHeaderComments>true</noGeneratedHeaderComments>
+                            <clearOutputDir>false</clearOutputDir>
+                            <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-remote-resources-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <resourceBundles>-->
+<!--                        <resourceBundle>ru.mk.wsa:WsaCommon:1.0</resourceBundle>-->
+<!--                    </resourceBundles>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>process</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 

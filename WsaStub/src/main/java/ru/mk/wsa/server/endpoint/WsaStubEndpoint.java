@@ -8,11 +8,18 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.SoapHeaderElement;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
+import ru.mk.common.clientInfo.ClientInfoRequest;
+import ru.mk.common.clientInfo.ClientInfoResponse;
+import ru.mk.common.clientInfo.ClientInfoResponseType;
+import ru.mk.common.clientInfo.SessionInfoType;
 import ru.mk.wsa.adapter587.SearchCustomerDossierDocumentReqType;
 import ru.mk.wsa.server.client.WsaClient;
 import ru.mk.wsa.server.param.SearchCustomDossierDocumentRequest;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import java.net.URISyntaxException;
+import java.util.UUID;
 
 
 @Log4j2
@@ -51,4 +58,19 @@ public class WsaStubEndpoint {
         client.sendSearchCustomerDossierDocumentResp(new SearchCustomDossierDocumentRequest(req, replyTo, faultTo, messageID, messageContext));
     }
 
+    @PayloadRoot(namespace = "http://www.mk.ru/clientInfo", localPart = "clientInfoRequest")
+    public @ResponsePayload JAXBElement<ClientInfoResponse> getClientInfo(@RequestPayload JAXBElement<ClientInfoRequest> req) {
+        return new JAXBElement<ClientInfoResponse>(new QName("clientInfoResponse"),ClientInfoResponse.class, new ClientInfoResponse(){{
+            setSessionInfo(new SessionInfoType(){{
+                SessionInfoType sit = req.getValue().getSessionInfo();
+                setSessionId(sit.getSessionId());
+                setResponseFor(sit.getMessageId());
+                setMessageId(UUID.randomUUID().toString());
+            }});
+            setClientInfo( new ClientInfoResponseType() {{
+                setLastName("Тестов");
+                setFirstName("Тестер");
+            }});
+        }});
+    }
 }

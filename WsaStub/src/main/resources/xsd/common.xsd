@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.mk.ru/common"
+        elementFormDefault="qualified">
+
+    <xsd:complexType name="SessionInfoType">
+        <xsd:sequence>
+            <xsd:element name="sessionId" type="xsd:string"/>
+            <xsd:element name="messageId" type="xsd:string"/>
+            <xsd:element name="responseFor" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

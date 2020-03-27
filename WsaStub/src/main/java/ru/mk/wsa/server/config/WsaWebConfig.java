@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.soap.addressing.server.AnnotationActionEndpointMapping;
@@ -14,6 +15,8 @@ import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
 import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
 import org.springframework.xml.xsd.XsdSchema;
+import org.springframework.xml.xsd.XsdSchemaCollection;
+import org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection;
 
 import java.util.Properties;
 
@@ -52,7 +55,7 @@ public class WsaWebConfig extends WsConfigurerAdapter {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformSchemaLocations(true);
-        return new ServletRegistrationBean(servlet, "/wsa/*");
+        return new ServletRegistrationBean(servlet, "/wsa/stubWsa.wsdl","/ws/beers.wsdl","/clientInfo/*");
     }
 
     @Bean(name = "stubWsa")
@@ -74,6 +77,27 @@ public class WsaWebConfig extends WsConfigurerAdapter {
 //        Properties soapActions = new Properties();
 //        soapActions.setProperty("getBeer", "http://memorynotfound.com/getBeerRequest");
 //        wsdl11Definition.setSoapActions(soapActions);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public CommonsXsdSchemaCollection getClientInfoSchema() {
+        CommonsXsdSchemaCollection cxsc = new CommonsXsdSchemaCollection(
+                new Resource[]{
+                        new ClassPathResource("/xsd/clientInfo.xsd")
+//                        , new ClassPathResource("/xsd/common.xsd")
+                });
+        cxsc.setInline(true);
+        return cxsc;
+    }
+
+    @Bean(name = "clientInfo")
+    public DefaultWsdl11Definition defaultWsdl11Definition2(XsdSchemaCollection schemaCollection) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ClientInfoPort");
+//        wsdl11Definition.setLocationUri("/clientInfoLoc");
+//        wsdl11Definition.setTargetNamespace("http://www.mk.ru/clientInfo");
+        wsdl11Definition.setSchemaCollection(schemaCollection);
         return wsdl11Definition;
     }
 
