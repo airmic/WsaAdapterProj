@@ -60,7 +60,7 @@ public class WsaStubEndpoint {
 
     @PayloadRoot(namespace = "http://www.mk.ru/clientInfo", localPart = "clientInfoRequest")
     public @ResponsePayload JAXBElement<ClientInfoResponse> getClientInfo(@RequestPayload JAXBElement<ClientInfoRequest> req) {
-        return new JAXBElement<ClientInfoResponse>(new QName("clientInfoResponse"),ClientInfoResponse.class, new ClientInfoResponse(){{
+        return new JAXBElement<ClientInfoResponse>(new QName("http://www.mk.ru/clientInfo","clientInfoResponse"),ClientInfoResponse.class, new ClientInfoResponse(){{
             setSessionInfo(new SessionInfoType(){{
                 SessionInfoType sit = req.getValue().getSessionInfo();
                 setSessionId(sit.getSessionId());
@@ -70,6 +70,7 @@ public class WsaStubEndpoint {
             setClientInfo( new ClientInfoResponseType() {{
                 setLastName("Тестов");
                 setFirstName("Тестер");
+                setMdmId(5436L);
             }});
         }});
     }

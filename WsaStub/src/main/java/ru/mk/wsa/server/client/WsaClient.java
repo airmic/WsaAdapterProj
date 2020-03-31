@@ -8,6 +8,7 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.SoapHeader;
 import org.springframework.ws.soap.SoapMessage;
 import ru.mk.wsa.adapter587.DocumentRespType;
+import ru.mk.wsa.adapter587.ErrorMessageType;
 import ru.mk.wsa.adapter587.SearchCustomerDossierDocumentReqType;
 import ru.mk.wsa.adapter587.SearchCustomerDossierDocumentRespType;
 import ru.mk.wsa.server.param.SearchCustomDossierDocumentRequest;
@@ -59,6 +60,9 @@ public class WsaClient extends WebServiceGatewaySupport {
 
     private SearchCustomerDossierDocumentRespType getResp(SearchCustomerDossierDocumentReqType req) {
         SearchCustomerDossierDocumentRespType resp = new SearchCustomerDossierDocumentRespType();
+        resp.setRuntimeFaultMSG( new ErrorMessageType() {{
+            setErrorCode("0");
+        }});
         resp.setDocument(
                 new DocumentRespType() {{
                     if(req.getDocument() != null) {
@@ -68,6 +72,8 @@ public class WsaClient extends WebServiceGatewaySupport {
                             setDocSubType(req.getDocument().getDocSubType());
                         setDocComment("Comment");
                         setDocID("55555");
+                        setDocLink("GetImage.aspx?FileID=123-UUID-1&TTL=88898-32k2-44");
+
                     }
                 }}
         );

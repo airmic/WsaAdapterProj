@@ -34,6 +34,7 @@
         <xsd:sequence>
             <xsd:element name="lastName" type="xsd:string" />
             <xsd:element name="firstName" type="xsd:string" />
+            <xsd:element name="mdmId" type="xsd:long" />
         </xsd:sequence>
     </xsd:complexType>
 

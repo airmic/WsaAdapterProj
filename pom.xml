@@ -22,7 +22,7 @@
         <module>WsaStub</module>
         <module>WsaAdapter</module>
         <module>WsaCommon</module>
-        <module>Service</module>
+        <module>MkService</module>
     </modules>
 
     <dependencies>

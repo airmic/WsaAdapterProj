@@ -10,7 +10,7 @@ wsa:
   threadPoolSize: 10
   servers:
     -SearchCustomerDossierDocument:
-      sendUri: http://localhost:8090/wsa/adapterWsa
+      sendUri: http://localhost:8090/wsa/stubWsa
       replyToUri: http://localhost:8092/wsa/adapter587
       faultToUri: http://localhost:8092/wsa/fault
       action: http://www.vtb24.ru/ApplicationConnectorServiceLibrary/DSFT/Requesters/SearchCustomerDossierDocumentDSFTReqA/V1/SearchCustomerDossierDocument

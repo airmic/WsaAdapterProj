@@ -1,0 +1,20 @@
+server:
+  port: 8099
+
+clientInfo:
+  url: http://localhost:8090/clientInfo
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        ws:
+          client:
+            MessageTracing:
+              sent: trace
+              received: trace
+          server:
+            MessageTracing:
+              sent: trace
+              received: trace

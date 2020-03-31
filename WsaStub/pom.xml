@@ -89,42 +89,24 @@
                             <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <configuration>
+                    <resourceBundles>
+                        <resourceBundle>ru.mk.wsa:WsaCommon:1.0</resourceBundle>
+                    </resourceBundles>
+                </configuration>
+                <executions>
                     <execution>
-                        <id>xjc-clientInfo</id>
                         <goals>
-                            <goal>xjc</goal>
+                            <goal>process</goal>
                         </goals>
-                        <configuration>
-                            <target>2.1</target>
-                            <sources>
-                                <source>${basedir}/src/main/resources/xsd/clientInfo.xsd</source>
-                                <source>${basedir}/src/main/resources/xsd/common.xsd</source>
-                            </sources>
-                            <!--                            <sourceType>wsdl</sourceType>-->
-                            <packageName>ru.mk.common.clientInfo</packageName>
-                            <noGeneratedHeaderComments>true</noGeneratedHeaderComments>
-                            <clearOutputDir>false</clearOutputDir>
-                            <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-remote-resources-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <resourceBundles>-->
-<!--                        <resourceBundle>ru.mk.wsa:WsaCommon:1.0</resourceBundle>-->
-<!--                    </resourceBundles>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>process</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 

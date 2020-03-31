@@ -55,7 +55,7 @@ public class WsaWebConfig extends WsConfigurerAdapter {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformSchemaLocations(true);
-        return new ServletRegistrationBean(servlet, "/wsa/stubWsa.wsdl","/ws/beers.wsdl","/clientInfo/*");
+        return new ServletRegistrationBean(servlet, "/wsa/stubWsa.wsdl","/ws/beers.wsdl","/clientInfo/*","/wsa/stubWsa/*");
     }
 
     @Bean(name = "stubWsa")
