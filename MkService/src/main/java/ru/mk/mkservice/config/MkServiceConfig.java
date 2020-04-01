@@ -5,19 +5,32 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import ru.mk.mkservice.client.clientinfo.DBInfoReceiver;
+import ru.mk.mkservice.client.clientinfo.PhotoReceiver;
 
 @Configuration
 public class MkServiceConfig {
 
     @Bean
-    public DBInfoReceiver getClientInfo(@Value("${clientInfo.url}") String url) {
-        DBInfoReceiver clientInfo = new DBInfoReceiver();
-        clientInfo.setDefaultUri(url);
+    public DBInfoReceiver getDbInfoReceiver(@Value("${dbInfoReceiver.url}") String url) {
+        DBInfoReceiver dbInfoReceiver = new DBInfoReceiver();
+        dbInfoReceiver.setDefaultUri(url);
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setContextPath("ru.mk.common.clientInfo");
-        clientInfo.setMarshaller(marshaller);
-        clientInfo.setUnmarshaller(marshaller);
+        dbInfoReceiver.setMarshaller(marshaller);
+        dbInfoReceiver.setUnmarshaller(marshaller);
 
-        return clientInfo;
+        return dbInfoReceiver;
+    }
+
+    @Bean
+    public PhotoReceiver getPhotoReceiver(@Value("${photoReceiver.url}") String photoReceiverUrl
+            , @Value("${photoStore.url}") String photoStoreUrl) {
+        PhotoReceiver photoReceiver = new PhotoReceiver(photoStoreUrl);
+        photoReceiver.setDefaultUri(photoReceiverUrl);
+        Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+        marshaller.setContextPath("ru.mk.wsa.adapter587.sync");
+        photoReceiver.setMarshaller(marshaller);
+        photoReceiver.setUnmarshaller(marshaller);
+        return photoReceiver;
     }
 }

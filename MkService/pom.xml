@@ -22,4 +22,67 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <configuration>
+                    <resourceBundles>
+                        <resourceBundle>ru.mk.wsa:WsaAdapter:1.0</resourceBundle>
+                    </resourceBundles>
+                    <attachToMain>false</attachToMain>
+<!--                    <excludeArtifactIds>wsdl/SearchCustomerDossierDocumentDSFT_Service_Sync.wsdl;</excludeArtifactIds>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>xjc-adapter-wsa-sync</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <target>2.1</target>
+                            <sources>
+                                <source>
+                                    ${project.build.directory}/maven-shared-archive-resources/wsdl/SearchCustomerDossierDocumentDSFT_Service_Sync.wsdl
+                                </source>
+                            </sources>
+                            <sourceType>wsdl</sourceType>
+                            <packageName>ru.mk.wsa.adapter587.sync</packageName>
+                            <noGeneratedHeaderComments>true</noGeneratedHeaderComments>
+                            <clearOutputDir>false</clearOutputDir>
+                            <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/maven-shared-archive-resources/wsdl</directory>
+                <includes>
+                    <include>SearchCustomerDossierDocumentDSFT_Service_Sync.wsdl</include>
+                </includes>
+                <targetPath>wsdl</targetPath>
+            </resource>
+        </resources>
+
+    </build>
+
+
 </project>

@@ -24,7 +24,7 @@ public class ClientInfoServiceImpl implements ClientInfoService {
     private ClientInfo getFlexteraClientInfo(long clientId) {
         String sessionId = UUID.randomUUID().toString();
         ClientInfo clientInfo = dbInfoReceiver.getMainClientInfo(sessionId, clientId);
-        clientInfo.setPhoto( photoReceiver.getPhotoUrl(clientInfo.getMdmID()));
+        clientInfo.setPhoto( photoReceiver.getPhotoUrl(sessionId, clientInfo.getMdmID()));
         return clientInfo;
     }
 

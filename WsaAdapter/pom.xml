@@ -96,6 +96,23 @@
 <!--                    </execution>-->
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+<!--                        <include>wsdl/SearchCustomerDossierDocumentDSFT_Service_Sync.wsdl</include>-->
+                        <include>wsdl/*.wsdl</include>
+                    </includes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
